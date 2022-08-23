@@ -206,7 +206,7 @@ class IntroductionScreen extends StatefulWidget {
   /// @Default `false`
   final bool rtl;
 
-  IntroductionScreen({
+  const IntroductionScreen({
     Key? key,
     this.pages,
     this.rawPages,
@@ -314,7 +314,7 @@ class IntroductionScreenState extends State<IntroductionScreen> {
   @override
   void initState() {
     super.initState();
-    int initialPage = min(widget.initialPage, getPagesLength() - 1);
+    final int initialPage = min(widget.initialPage, getPagesLength() - 1);
     _currentPage = initialPage.toDouble();
     _pageController = PageController(initialPage: initialPage);
   }
@@ -463,7 +463,7 @@ class IntroductionScreenState extends State<IntroductionScreen> {
                     children: [
                       Expanded(
                         flex: widget.skipOrBackFlex,
-                        child: leftBtn ?? const SizedBox(),
+                        child: leftBtn ?? const SizedBox(height: 48),
                       ),
                       Expanded(
                         flex: widget.dotsFlex,
@@ -489,7 +489,7 @@ class IntroductionScreenState extends State<IntroductionScreen> {
                       ),
                       Expanded(
                         flex: widget.nextFlex,
-                        child: rightBtn ?? const SizedBox(),
+                        child: rightBtn ?? const SizedBox(height: 48),
                       ),
                     ].asReversed(widget.rtl),
                   ),
