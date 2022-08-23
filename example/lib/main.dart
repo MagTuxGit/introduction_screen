@@ -86,30 +86,30 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       ),
       pages: [
         PageViewModel(
-          title: "Fractional shares",
+          title: 'Fractional shares',
           body:
-          "Instead of having to buy an entire share, invest any amount you want.",
+          'Instead of having to buy an entire share, invest any amount you want.',
           image: _buildImage('img1.jpg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Learn as you go",
+          title: 'Learn as you go',
           body:
-          "Download the Stockpile app and master the market with our mini-lesson.",
+          'Download the Stockpile app and master the market with our mini-lesson.',
           image: _buildImage('img2.jpg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Kids and teens",
+          title: 'Kids and teens',
           body:
-          "Kids and teens can track their stocks 24/7 and place trades that you approve.",
+          'Kids and teens can track their stocks 24/7 and place trades that you approve.',
           image: _buildImage('img3.jpg'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Full Screen Page",
+          title: 'Full Screen Page',
           body:
-          "Pages can be full screen as well.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id euismod lectus, non tempor felis. Nam rutrum rhoncus est ac venenatis.",
+          'Pages can be full screen as well.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id euismod lectus, non tempor felis. Nam rutrum rhoncus est ac venenatis.',
           image: _buildFullscreenImage(),
           decoration: pageDecoration.copyWith(
             contentMargin: const EdgeInsets.symmetric(horizontal: 16),
@@ -119,8 +119,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           ),
         ),
         PageViewModel(
-          title: "Another title page",
-          body: "Another beautiful body text for this example onboarding",
+          title: 'Another title page',
+          body: 'Another beautiful body text for this example onboarding',
           image: _buildImage('img2.jpg'),
           footer: ElevatedButton(
             onPressed: () {
@@ -140,13 +140,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Title of last page - reversed",
+          title: 'Title of last page - reversed',
           bodyWidget: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Text("Click on ", style: bodyStyle),
+              Text('Click on ', style: bodyStyle),
               Icon(Icons.edit),
-              Text(" to edit a post", style: bodyStyle),
+              Text(' to edit a post', style: bodyStyle),
             ],
           ),
           decoration: pageDecoration.copyWith(
@@ -198,7 +198,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
-      body: const Center(child: Text("This is the screen after Introduction")),
+      body: const Center(child: Text('This is the screen after Introduction')),
     );
   }
 }

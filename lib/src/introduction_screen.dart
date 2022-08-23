@@ -471,7 +471,7 @@ class IntroductionScreenState extends State<IntroductionScreen> {
                           child: widget.isProgress
                               ? Semantics(
                                   label:
-                                      "Page ${_currentPage.round() + 1} of ${getPagesLength()}",
+                                      'Page ${_currentPage.round() + 1} of ${getPagesLength()}',
                                   excludeSemantics: true,
                                   child: DotsIndicator(
                                     reversed: widget.rtl,

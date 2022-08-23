@@ -11,4 +11,4 @@ dependencies:
     sdk: flutter
 
   dots_indicator: ^2.1.0
-  collection: ^1.15.0
+  collection: ^1.16.0
