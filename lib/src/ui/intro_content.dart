@@ -8,8 +8,20 @@ class IntroContent extends StatelessWidget {
   const IntroContent({Key? key, required this.page, this.isFullScreen = false})
       : super(key: key);
 
-  Widget _buildWidget(Widget? widget, String? text, TextStyle style) {
-    return widget ?? Text(text!, style: style, textAlign: TextAlign.center);
+  Widget _buildWidget(Widget? widget, String? text, TextStyle style,
+      int? textLines) {
+    if (widget != null) {
+      return widget;
+    }
+
+    text = text ?? '';
+    int? maxLines;
+    if (textLines != null) {
+      text = text + '\n'*textLines;
+      maxLines = textLines;
+    }
+    return widget ?? Text(
+        text, style: style, textAlign: TextAlign.center, maxLines: maxLines);
   }
 
   @override
@@ -18,10 +30,10 @@ class IntroContent extends StatelessWidget {
       margin: page.decoration.contentMargin,
       decoration: isFullScreen
           ? page.decoration.boxDecoration ??
-              BoxDecoration(
-                color: page.decoration.pageColor,
-                borderRadius: BorderRadius.circular(8.0),
-              )
+          BoxDecoration(
+            color: page.decoration.pageColor,
+            borderRadius: BorderRadius.circular(8.0),
+          )
           : null,
       child: Column(
         children: [
@@ -31,6 +43,7 @@ class IntroContent extends StatelessWidget {
               page.titleWidget,
               page.title,
               page.decoration.titleTextStyle,
+              page.decoration.titleLines,
             ),
           ),
           Container(
@@ -39,6 +52,7 @@ class IntroContent extends StatelessWidget {
               page.bodyWidget,
               page.body,
               page.decoration.bodyTextStyle,
+              page.decoration.bodyLines,
             ),
           ),
           if (page.footer != null)

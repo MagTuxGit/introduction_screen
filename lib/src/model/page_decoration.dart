@@ -61,6 +61,12 @@ class PageDecoration {
   /// @Default: `false`
   final bool fullScreen;
 
+  /// Fixed lines number in the title widget
+  final int? titleLines;
+
+  /// Fixed lines number in the body widget
+  final int? bodyLines;
+
   const PageDecoration({
     this.pageColor,
     this.titleTextStyle = const TextStyle(
@@ -82,6 +88,8 @@ class PageDecoration {
     this.bodyAlignment = Alignment.topCenter,
     this.imageAlignment = Alignment.bottomCenter,
     this.fullScreen = false,
+    this.titleLines,
+    this.bodyLines,
   }) : assert(pageColor == null || boxDecoration == null,
             'Cannot provide both a Color and a BoxDecoration\n');
 
