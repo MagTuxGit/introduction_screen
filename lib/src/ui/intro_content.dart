@@ -37,24 +37,26 @@ class IntroContent extends StatelessWidget {
           : null,
       child: Column(
         children: [
-          Padding(
-            padding: page.decoration.titlePadding,
-            child: _buildWidget(
-              page.titleWidget,
-              page.title,
-              page.decoration.titleTextStyle,
-              page.decoration.titleLines,
+          if (page.titleWidget != null || page.title != null)
+            Padding(
+              padding: page.decoration.titlePadding,
+              child: _buildWidget(
+                page.titleWidget,
+                page.title,
+                page.decoration.titleTextStyle,
+                page.decoration.titleLines,
+              ),
             ),
-          ),
-          Container(
-            padding: page.decoration.bodyPadding,
-            child: _buildWidget(
-              page.bodyWidget,
-              page.body,
-              page.decoration.bodyTextStyle,
-              page.decoration.bodyLines,
+          if (page.bodyWidget != null || page.body != null)
+            Container(
+              padding: page.decoration.bodyPadding,
+              child: _buildWidget(
+                page.bodyWidget,
+                page.body,
+                page.decoration.bodyTextStyle,
+                page.decoration.bodyLines,
+              ),
             ),
-          ),
           if (page.footer != null)
             Padding(
               padding: page.decoration.footerPadding,
