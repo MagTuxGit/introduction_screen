@@ -49,7 +49,7 @@ class _IntroPageState extends State<IntroPage>
                       : content,
                 ),
               ].asReversed(widget.page.reverse),
-              SafeArea(top: false, child: const SizedBox(height: 60.0)),
+              const SafeArea(top: false, child: SizedBox(height: 60.0)),
             ],
           ),
         ),
