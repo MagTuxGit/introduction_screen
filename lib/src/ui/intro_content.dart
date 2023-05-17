@@ -8,54 +8,36 @@ class IntroContent extends StatelessWidget {
   const IntroContent({Key? key, required this.page, this.isFullScreen = false})
       : super(key: key);
 
-  Widget _buildWidget(Widget? widget, String? text, TextStyle style,
-      int? textLines) {
-    if (widget != null) {
-      return widget;
-    }
-
-    text = text ?? '';
-    int? maxLines;
-    if (textLines != null) {
-      text = text + '\n'*textLines;
-      maxLines = textLines;
-    }
-    return widget ?? Text(
-        text, style: style, textAlign: TextAlign.center, maxLines: maxLines);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: page.decoration.contentMargin,
       decoration: isFullScreen
           ? page.decoration.boxDecoration ??
-          BoxDecoration(
-            color: page.decoration.pageColor,
-            borderRadius: BorderRadius.circular(8.0),
-          )
+              BoxDecoration(
+                color: page.decoration.pageColor,
+                borderRadius: BorderRadius.circular(8.0),
+              )
           : null,
       child: Column(
         children: [
           if (page.titleWidget != null || page.title != null)
             Padding(
               padding: page.decoration.titlePadding,
-              child: _buildWidget(
-                page.titleWidget,
-                page.title,
-                page.decoration.titleTextStyle,
-                page.decoration.titleLines,
-              ),
+              child: _TextWidget(
+                  widget: page.titleWidget,
+                  text: page.title,
+                  style: page.decoration.titleTextStyle,
+                  textLines: page.decoration.titleLines),
             ),
           if (page.bodyWidget != null || page.body != null)
             Container(
               padding: page.decoration.bodyPadding,
-              child: _buildWidget(
-                page.bodyWidget,
-                page.body,
-                page.decoration.bodyTextStyle,
-                page.decoration.bodyLines,
-              ),
+              child: _TextWidget(
+                  widget: page.bodyWidget,
+                  text: page.body,
+                  style: page.decoration.bodyTextStyle,
+                  textLines: page.decoration.bodyLines),
             ),
           if (page.footer != null)
             Padding(
@@ -65,5 +47,35 @@ class IntroContent extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _TextWidget extends StatelessWidget {
+  const _TextWidget({
+    required this.widget,
+    required this.text,
+    required this.style,
+    required this.textLines,
+  });
+
+  final Widget? widget;
+  final String? text;
+  final TextStyle style;
+  final int? textLines;
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget != null) {
+      return widget!;
+    }
+
+    String text = this.text ?? '';
+    int? maxLines;
+    if (textLines != null) {
+      text = text + '\n' * textLines!;
+      maxLines = textLines;
+    }
+    return Text(text,
+        style: style, textAlign: TextAlign.center, maxLines: maxLines);
   }
 }

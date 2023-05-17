@@ -26,29 +26,51 @@ class _IntroPageState extends State<IntroPage>
   @override
   bool get wantKeepAlive => true;
 
-  Widget _buildStack() {
-    final content = IntroContent(page: widget.page, isFullScreen: true);
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+
+    if (widget.page.decoration.fullScreen) {
+      return _StackIntroContent(widget.page, widget.scrollController);
+    }
+    return SafeArea(
+      top: widget.isTopSafeArea,
+      bottom: widget.isBottomSafeArea,
+      child: _FlexIntroContent(widget.page, widget.scrollController),
+    );
+  }
+}
+
+class _StackIntroContent extends StatelessWidget {
+  final PageViewModel page;
+  final ScrollController? scrollController;
+
+  const _StackIntroContent(this.page, this.scrollController);
+
+  @override
+  Widget build(BuildContext context) {
+    final content = IntroContent(page: page, isFullScreen: true);
 
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        if (widget.page.image != null) widget.page.image!,
+        if (page.image != null) page.image!,
         Positioned.fill(
           child: Column(
             children: [
               ...[
-                Spacer(flex: widget.page.decoration.imageFlex),
+                Spacer(flex: page.decoration.imageFlex),
                 Expanded(
-                  flex: widget.page.decoration.bodyFlex,
-                  child: widget.page.useScrollView
+                  flex: page.decoration.bodyFlex,
+                  child: page.useScrollView
                       ? SingleChildScrollView(
-                          controller: widget.scrollController,
+                          controller: scrollController,
                           physics: const BouncingScrollPhysics(),
                           child: content,
                         )
                       : content,
                 ),
-              ].asReversed(widget.page.reverse),
+              ].asReversed(page.reverse),
               const SafeArea(top: false, child: SizedBox(height: 60.0)),
             ],
           ),
@@ -56,61 +78,55 @@ class _IntroPageState extends State<IntroPage>
       ],
     );
   }
+}
 
-  Widget _buildFlex(context) {
+class _FlexIntroContent extends StatelessWidget {
+  final PageViewModel page;
+  final ScrollController? scrollController;
+
+  const _FlexIntroContent(this.page, this.scrollController);
+
+  @override
+  Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
 
     return Container(
-      color: widget.page.decoration.pageColor,
-      decoration: widget.page.decoration.boxDecoration,
+      color: page.decoration.pageColor,
+      decoration: page.decoration.boxDecoration,
       margin: const EdgeInsets.only(bottom: 60.0),
       child: Flex(
-        direction: widget.page.useRowInLandscape &&
-                orientation == Orientation.landscape
-            ? Axis.horizontal
-            : Axis.vertical,
+        direction:
+            page.useRowInLandscape && orientation == Orientation.landscape
+                ? Axis.horizontal
+                : Axis.vertical,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (widget.page.image != null)
+          if (page.image != null)
             Expanded(
-              flex: widget.page.decoration.imageFlex,
+              flex: page.decoration.imageFlex,
               child: Align(
-                alignment: widget.page.decoration.imageAlignment,
+                alignment: page.decoration.imageAlignment,
                 child: Padding(
-                  padding: widget.page.decoration.imagePadding,
-                  child: widget.page.image,
+                  padding: page.decoration.imagePadding,
+                  child: page.image,
                 ),
               ),
             ),
           Expanded(
-            flex: widget.page.decoration.bodyFlex,
+            flex: page.decoration.bodyFlex,
             child: Align(
-              alignment: widget.page.decoration.bodyAlignment,
-              child: widget.page.useScrollView
+              alignment: page.decoration.bodyAlignment,
+              child: page.useScrollView
                   ? SingleChildScrollView(
-                      controller: widget.scrollController,
+                      controller: scrollController,
                       physics: const BouncingScrollPhysics(),
-                      child: IntroContent(page: widget.page),
+                      child: IntroContent(page: page),
                     )
-                  : IntroContent(page: widget.page),
+                  : IntroContent(page: page),
             ),
           ),
-        ].asReversed(widget.page.reverse),
+        ].asReversed(page.reverse),
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-
-    if (widget.page.decoration.fullScreen) {
-      return _buildStack();
-    }
-    return SafeArea(
-      top: widget.isTopSafeArea,
-      bottom: widget.isBottomSafeArea,
-      child: _buildFlex(context),
     );
   }
 }
