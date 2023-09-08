@@ -8,7 +8,7 @@ import 'package:introduction_screen/src/ui/intro_content.dart';
 import 'package:introduction_screen/src/ui/intro_page.dart';
 
 void main() {
-  group("Intro UI widget tests", () {
+  group('Intro UI widget tests', () {
     final titleFinder = find.text('Test Title');
     final bodyFinder = find.text('Test Body');
     final footerFinder = find.text('Test Footer');

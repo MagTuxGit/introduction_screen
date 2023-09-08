@@ -674,7 +674,7 @@ class IntroductionScreenState extends State<IntroductionScreen> {
                                   ? widget.customProgress ??
                                       Semantics(
                                         label:
-                                            "Page ${getCurrentPage() + 1} of ${getPagesLength()}",
+                                            'Page ${getCurrentPage() + 1} of ${getPagesLength()}',
                                         excludeSemantics: true,
                                         child: DotsIndicator(
                                           reversed: widget.rtl,
