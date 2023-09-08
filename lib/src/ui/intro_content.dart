@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:introduction_screen/introduction_screen.dart';
+import '/introduction_screen.dart';
 
 class IntroContent extends StatelessWidget {
   final PageViewModel page;
@@ -41,11 +41,6 @@ class IntroContent extends StatelessWidget {
               page.decoration.bodyTextStyle,
             ),
           ),
-          if (page.footer != null)
-            Padding(
-              padding: page.decoration.footerPadding,
-              child: page.footer,
-            ),
         ],
       ),
     );

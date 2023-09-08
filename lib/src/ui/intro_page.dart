@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:introduction_screen/src/helper.dart';
-import 'package:introduction_screen/src/model/page_view_model.dart';
-import 'package:introduction_screen/src/ui/intro_content.dart';
+import '/src/helper.dart';
+import '/src/model/page_view_model.dart';
+import '/src/ui/intro_content.dart';
 
 class IntroPage extends StatefulWidget {
   final PageViewModel page;
   final ScrollController? scrollController;
-  final bool isTopSafeArea;
-  final bool isBottomSafeArea;
 
   const IntroPage({
     Key? key,
     required this.page,
     this.scrollController,
-    required this.isTopSafeArea,
-    required this.isBottomSafeArea,
   }) : super(key: key);
 
   @override
@@ -27,20 +23,21 @@ class _IntroPageState extends State<IntroPage>
   bool get wantKeepAlive => true;
 
   Widget _buildStack() {
-    final content = IntroContent(page: widget.page, isFullScreen: true);
+    final PageViewModel page = widget.page;
+    final content = IntroContent(page: page, isFullScreen: true);
 
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        if (widget.page.image != null) widget.page.image!,
+        if (page.image != null) page.image!,
         Positioned.fill(
           child: Column(
             children: [
               ...[
-                Spacer(flex: widget.page.decoration.imageFlex),
+                Spacer(flex: page.decoration.imageFlex),
                 Expanded(
-                  flex: widget.page.decoration.bodyFlex,
-                  child: widget.page.useScrollView
+                  flex: page.decoration.bodyFlex,
+                  child: page.useScrollView
                       ? SingleChildScrollView(
                           controller: widget.scrollController,
                           physics: const BouncingScrollPhysics(),
@@ -48,8 +45,19 @@ class _IntroPageState extends State<IntroPage>
                         )
                       : content,
                 ),
-              ].asReversed(widget.page.reverse),
-              SafeArea(top: false, child: const SizedBox(height: 60.0)),
+              ].asReversed(page.reverse),
+              if (page.footer != null)
+                Flexible(
+                  child: page.footer!,
+                  flex: page.decoration.footerFlex,
+                  fit: page.decoration.footerFit,
+                ),
+              SafeArea(
+                top: false,
+                child: SizedBox(
+                  height: page.decoration.safeArea,
+                ),
+              ),
             ],
           ),
         ),
@@ -59,43 +67,53 @@ class _IntroPageState extends State<IntroPage>
 
   Widget _buildFlex(context) {
     final orientation = MediaQuery.of(context).orientation;
+    final PageViewModel page = widget.page;
 
     return Container(
-      color: widget.page.decoration.pageColor,
-      decoration: widget.page.decoration.boxDecoration,
-      margin: const EdgeInsets.only(bottom: 60.0),
+      color: page.decoration.pageColor,
+      decoration: page.decoration.boxDecoration,
+      margin: page.decoration.pageMargin,
       child: Flex(
-        direction: widget.page.useRowInLandscape &&
-                orientation == Orientation.landscape
-            ? Axis.horizontal
-            : Axis.vertical,
+        direction:
+            page.useRowInLandscape && orientation == Orientation.landscape
+                ? Axis.horizontal
+                : Axis.vertical,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (widget.page.image != null)
-            Expanded(
-              flex: widget.page.decoration.imageFlex,
-              child: Align(
-                alignment: widget.page.decoration.imageAlignment,
-                child: Padding(
-                  padding: widget.page.decoration.imagePadding,
-                  child: widget.page.image,
+          ...[
+            if (page.image != null)
+              Expanded(
+                flex: page.decoration.imageFlex,
+                child: Align(
+                  alignment: page.decoration.imageAlignment,
+                  child: Padding(
+                    padding: page.decoration.imagePadding,
+                    child: page.image,
+                  ),
                 ),
               ),
+            Expanded(
+              flex: page.decoration.bodyFlex,
+              child: Align(
+                alignment: page.decoration.bodyAlignment,
+                child: page.useScrollView
+                    ? SingleChildScrollView(
+                        controller: widget.scrollController,
+                        physics: const BouncingScrollPhysics(),
+                        child: IntroContent(page: page),
+                      )
+                    : IntroContent(page: page),
+              ),
             ),
-          Expanded(
-            flex: widget.page.decoration.bodyFlex,
-            child: Align(
-              alignment: widget.page.decoration.bodyAlignment,
-              child: widget.page.useScrollView
-                  ? SingleChildScrollView(
-                      controller: widget.scrollController,
-                      physics: const BouncingScrollPhysics(),
-                      child: IntroContent(page: widget.page),
-                    )
-                  : IntroContent(page: widget.page),
+          ].asReversed(page.reverse),
+          if (page.footer != null)
+            Flexible(
+              child: page.footer!,
+              flex: page.decoration.footerFlex,
+              fit: page.decoration.footerFit,
             ),
-          ),
-        ].asReversed(widget.page.reverse),
+          SizedBox(height: page.decoration.safeArea)
+        ],
       ),
     );
   }
@@ -107,10 +125,6 @@ class _IntroPageState extends State<IntroPage>
     if (widget.page.decoration.fullScreen) {
       return _buildStack();
     }
-    return SafeArea(
-      top: widget.isTopSafeArea,
-      bottom: widget.isBottomSafeArea,
-      child: _buildFlex(context),
-    );
+    return _buildFlex(context);
   }
 }

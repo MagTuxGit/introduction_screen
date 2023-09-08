@@ -23,6 +23,12 @@ class PageDecoration {
   /// Flex ratio of the body
   final int bodyFlex;
 
+  /// Flex ratio of the footer
+  final int footerFlex;
+
+  /// FlexFit of the footer
+  final FlexFit footerFit;
+
   /// Padding of image
   ///
   /// @Default `EdgeInsets.only(bottom: 24.0)`
@@ -32,6 +38,11 @@ class PageDecoration {
   ///
   /// @Default `EdgeInsets.all(16.0)`
   final EdgeInsets contentMargin;
+
+  /// Margin for page
+  ///
+  /// @Default `EdgeInsets.only(bottom: 60.0)`
+  final EdgeInsets? pageMargin;
 
   /// Padding of title
   ///
@@ -61,6 +72,11 @@ class PageDecoration {
   /// @Default: `false`
   final bool fullScreen;
 
+  /// Safe area of the content. Change to avoid the overlap between the dots and the content
+  ///
+  /// @Default 60
+  final double safeArea;
+
   const PageDecoration({
     this.pageColor,
     this.titleTextStyle = const TextStyle(
@@ -74,14 +90,18 @@ class PageDecoration {
     this.boxDecoration,
     this.imageFlex = 1,
     this.bodyFlex = 1,
+    this.footerFlex = 1,
+    this.footerFit = FlexFit.loose,
     this.imagePadding = const EdgeInsets.only(bottom: 24.0),
     this.contentMargin = const EdgeInsets.all(16.0),
+    this.pageMargin = const EdgeInsets.only(bottom: 60.0),
     this.titlePadding = const EdgeInsets.only(top: 16.0, bottom: 24.0),
     this.bodyPadding,
     this.footerPadding = const EdgeInsets.symmetric(vertical: 24.0),
     this.bodyAlignment = Alignment.topCenter,
     this.imageAlignment = Alignment.bottomCenter,
     this.fullScreen = false,
+    this.safeArea = 60,
   }) : assert(pageColor == null || boxDecoration == null,
             'Cannot provide both a Color and a BoxDecoration\n');
 
@@ -92,14 +112,18 @@ class PageDecoration {
     BoxDecoration? boxDecoration,
     int? imageFlex,
     int? bodyFlex,
+    int? footerFlex,
+    FlexFit? footerFit,
     EdgeInsets? imagePadding,
     EdgeInsets? contentMargin,
+    EdgeInsets? pageMargin,
     EdgeInsets? titlePadding,
     EdgeInsets? descriptionPadding,
     EdgeInsets? footerPadding,
     Alignment? bodyAlignment,
     Alignment? imageAlignment,
     bool? fullScreen,
+    double? safeArea,
   }) {
     assert(
       pageColor == null || boxDecoration == null,
@@ -113,14 +137,18 @@ class PageDecoration {
       boxDecoration: boxDecoration ?? this.boxDecoration,
       imageFlex: imageFlex ?? this.imageFlex,
       bodyFlex: bodyFlex ?? this.bodyFlex,
+      footerFlex: footerFlex ?? this.footerFlex,
+      footerFit: footerFit ?? this.footerFit,
       imagePadding: imagePadding ?? this.imagePadding,
       contentMargin: contentMargin ?? this.contentMargin,
+      pageMargin: pageMargin ?? this.pageMargin,
       titlePadding: titlePadding ?? this.titlePadding,
       bodyPadding: descriptionPadding ?? this.bodyPadding,
       footerPadding: footerPadding ?? this.footerPadding,
       bodyAlignment: bodyAlignment ?? this.bodyAlignment,
       imageAlignment: imageAlignment ?? this.imageAlignment,
       fullScreen: fullScreen ?? this.fullScreen,
+      safeArea: safeArea ?? this.safeArea,
     );
   }
 }

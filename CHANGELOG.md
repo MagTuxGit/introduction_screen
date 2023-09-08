@@ -1,6 +1,100 @@
 # Changelog
+All notable changes to this project will be documented in this file.
 
-## 3.0.2
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [3.1.11] - 2023-07-13
+
+### Fixed
+- Fixes last page detection [PR#193](https://github.com/Pyozer/introduction_screen/pull/193)
+
+## [3.1.10] - 2023-07-11
+
+### Added
+- Add getter `getCurrentPage()` to get current page as an integer
+
+### Fixed
+- Fixed a bug on auto scroll using raw pages when initial launch [PR#189](https://github.com/Pyozer/introduction_screen/pull/189)
+- Revert _currentpage to a double instead of int to have the dots animation
+
+## [3.1.9] - 2023-06-19
+
+### Changed
+- Some changes and fixes to auto scroll [PR#186](https://github.com/Pyozer/introduction_screen/pull/186)
+
+### Added
+- [collection](https://pub.dev/packages/collection) dependency for above
+
+### Fixed
+- Fix auto scroll error [PR#177](https://github.com/Pyozer/introduction_screen/pull/177)
+- Fix breaking -> turn _currentpage into an int instead of double [PR#180](https://github.com/Pyozer/introduction_screen/pull/180)
+- Fix PageController.page cannot be accessed before a PageView is built with it [PR#178](https://github.com/Pyozer/introduction_screen/pull/178)
+
+## [3.1.8] - 2023-04-19
+- Added safeAreaList parameter [PR#174](https://github.com/Pyozer/introduction_screen/pull/174)
+
+## [3.1.7] - 2023-03-16
+- Added hideBottomOnKeyboard parameter [PR#171](https://github.com/Pyozer/introduction_screen/pull/171)
+
+## [3.1.6] - 2023-02-15
+- Added customProgress parameter [PR#167](https://github.com/Pyozer/introduction_screen/pull/167)
+
+## [3.1.5] - 2023-02-15
+
+### Added
+- Added the option conceal the bottom part of the introduction screen [PR#163](https://github.com/Pyozer/introduction_screen/pull/163) 
+- Adding the getCurrentPageNumber getter [PR#164](https://github.com/Pyozer/introduction_screen/pull/164)
+
+## [3.1.4] - 2023-01-13
+
+### Fixed
+-  Fix bounce effect that occurs after last page - [PR#159](https://github.com/Pyozer/introduction_screen/pull/159)
+
+### Changed
+- changed footer to flexible + footerFit + readme - [PR#160](https://github.com/Pyozer/introduction_screen/pull/160)
+
+## [3.1.3] - 2023-01-11
+
+### Added
+- Added a README section demoing IntroductionScreen key param - [PR#154](https://github.com/Pyozer/introduction_screen/pull/154)
+- Added dynamic safeArea - [PR#158](https://github.com/Pyozer/introduction_screen/pull/158)
+
+### Fixed
+-  fix sample visual - [PR#158](https://github.com/Pyozer/introduction_screen/pull/158)
+
+### Changed
+- remove footer from body - [PR#157](https://github.com/Pyozer/introduction_screen/pull/157)
+
+## [3.1.2] - 2022-12-28
+
+### Added
+- `unfocus` in both next and previous methods - [PR#153](https://github.com/Pyozer/introduction_screen/pull/153) 
+-  body padding option - [PR#143](https://github.com/Pyozer/introduction_screen/pull/143) 
+- `allowImplicitScrolling` parameter to IntroductionScreen widget - [PR#138](https://github.com/Pyozer/introduction_screen/pull/138) 
+
+## [3.1.1] - 2022-11-29
+
+### Fixed 
+- Explicitly select `elementAtOrNull` from our `CustomList` helper by using an extension override. [#151](https://github.com/Pyozer/introduction_screen/issues/151)
+
+## [3.1.0] - 2022-11-26
+
+### Added
+- `resizeToAvoidBottomInset` to for better keyboard support - [PR#141](https://github.com/Pyozer/introduction_screen/pull/141)
+- `canProgress` parameter to check if it is valid to progress to the next page - [PR#137](https://github.com/Pyozer/introduction_screen/pull/137)
+- autoscroll method - [PR#136](https://github.com/Pyozer/introduction_screen/pull/136)
+
+### Fixed 
+- Hiding Of Skip Button Is Now Handled By A Visibility Widget So It Doesn't Jump Around - [PR#127](https://github.com/Pyozer/introduction_screen/pull/127)
+
+### Changed 
+- README.md improvements - [PR#120](https://github.com/Pyozer/introduction_screen/pull/120)
+- Update Gradle and Kotlin versions in example app - [PR#145](https://github.com/Pyozer/introduction_screen/pull/145)
+- Fix deprecated warnings in example app
+
+
+## [3.0.2] - 2022-03-30
 
 * Downgrade collection lib to 1.15.0 ([IS#113](https://github.com/Pyozer/introduction_screen/issues/113))
 
