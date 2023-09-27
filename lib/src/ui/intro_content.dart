@@ -9,7 +9,10 @@ class IntroContent extends StatelessWidget {
       : super(key: key);
 
   Widget _buildWidget(Widget? widget, String? text, TextStyle style) {
-    return widget ?? Text(text!, style: style, textAlign: TextAlign.center);
+    return widget ??
+        (text != null
+            ? Text(text, style: style, textAlign: TextAlign.center)
+            : const SizedBox.shrink());
   }
 
   @override
