@@ -4,9 +4,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '/src/helper.dart';
 import '/src/model/page_view_model.dart';
 import '/src/model/position.dart';
@@ -118,7 +118,8 @@ class IntroductionScreen extends StatefulWidget {
   final Color? globalBackgroundColor;
 
   /// Dots decorator to custom dots color, size and spacing
-  final DotsDecorator dotsDecorator;
+  //final DotsDecorator dotsDecorator;
+  final IndicatorEffect dotsDecorator;
 
   /// Decorator to customize the appearance of the progress dots container.
   /// This is useful when the background image is full screen.
@@ -303,7 +304,7 @@ class IntroductionScreen extends StatefulWidget {
       this.isProgressTap = true,
       this.freeze = false,
       this.globalBackgroundColor,
-      this.dotsDecorator = const DotsDecorator(),
+      this.dotsDecorator = const ColorTransitionEffect(),
       this.dotsContainerDecorator,
       this.animationDuration = 350,
       this.autoScrollDuration,
@@ -676,17 +677,25 @@ class IntroductionScreenState extends State<IntroductionScreen> {
                                         label:
                                             'Page ${getCurrentPage() + 1} of ${getPagesLength()}',
                                         excludeSemantics: true,
-                                        child: DotsIndicator(
-                                          reversed: widget.rtl,
-                                          dotsCount: getPagesLength(),
-                                          position: _currentPage,
-                                          decorator: widget.dotsDecorator,
-                                          onTap: widget.isProgressTap &&
-                                                  !widget.freeze
-                                              ? (pos) =>
-                                                  animateScroll(pos.toInt())
-                                              : null,
+                                        child: SmoothPageIndicator(
+                                          textDirection: widget.rtl
+                                              ? TextDirection.rtl
+                                              : TextDirection.ltr,
+                                          count: getPagesLength(),
+                                          controller: controller,
+                                          effect: widget.dotsDecorator,
                                         ),
+                                        // child: DotsIndicator(
+                                        //   reversed: widget.rtl,
+                                        //   dotsCount: getPagesLength(),
+                                        //   position: _currentPage,
+                                        //   decorator: widget.dotsDecorator,
+                                        //   onTap: widget.isProgressTap &&
+                                        //           !widget.freeze
+                                        //       ? (pos) =>
+                                        //           animateScroll(pos.toInt())
+                                        //       : null,
+                                        // ),
                                       )
                                   : const SizedBox(),
                             ),
