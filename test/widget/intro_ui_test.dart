@@ -15,7 +15,7 @@ void main() {
 
     testWidgets('IntroButton has text', (tester) async {
       await tester.pumpWidget(testableWidget(
-        child: IntroButton(child: const Text('Test Text')),
+        child: const IntroButton(child: Text('Test Text')),
       ));
 
       final textFinder = find.text('Test Text');

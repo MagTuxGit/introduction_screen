@@ -22,12 +22,12 @@ class IntroButton extends StatelessWidget {
         button: true,
         child: TextButton(
           onPressed: onPressed,
-          child: child,
           style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
             ),
           ).merge(style),
+          child: child,
         ),
       ),
     );

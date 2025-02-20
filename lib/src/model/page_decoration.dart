@@ -39,6 +39,8 @@ class PageDecoration {
   /// @Default `EdgeInsets.all(16.0)`
   final EdgeInsets contentMargin;
 
+  final double? contentHeight;
+
   /// Margin for page
   ///
   /// @Default `EdgeInsets.only(bottom: 60.0)`
@@ -102,6 +104,7 @@ class PageDecoration {
     this.imageAlignment = Alignment.bottomCenter,
     this.fullScreen = false,
     this.safeArea = 60,
+    this.contentHeight,
   }) : assert(pageColor == null || boxDecoration == null,
             'Cannot provide both a Color and a BoxDecoration\n');
 
@@ -124,6 +127,7 @@ class PageDecoration {
     Alignment? imageAlignment,
     bool? fullScreen,
     double? safeArea,
+    double? contentHeight,
   }) {
     assert(
       pageColor == null || boxDecoration == null,
@@ -141,6 +145,7 @@ class PageDecoration {
       footerFit: footerFit ?? this.footerFit,
       imagePadding: imagePadding ?? this.imagePadding,
       contentMargin: contentMargin ?? this.contentMargin,
+      contentHeight: contentHeight ?? this.contentHeight,
       pageMargin: pageMargin ?? this.pageMargin,
       titlePadding: titlePadding ?? this.titlePadding,
       bodyPadding: descriptionPadding ?? this.bodyPadding,

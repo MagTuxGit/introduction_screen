@@ -19,6 +19,7 @@ class IntroContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: page.decoration.contentMargin,
+      height: page.decoration.contentHeight,
       decoration: isFullScreen
           ? page.decoration.boxDecoration ??
               BoxDecoration(

@@ -278,7 +278,9 @@ class IntroductionScreen extends StatefulWidget {
   /// ```
   final CanProgress canProgress;
 
-  IntroductionScreen(
+  final PageController? controller;
+
+  const IntroductionScreen(
       {Key? key,
       this.pages,
       this.rawPages,
@@ -336,7 +338,8 @@ class IntroductionScreen extends StatefulWidget {
       this.rtl = false,
       this.allowImplicitScrolling = false,
       this.canProgress = kDefaultCanProgressFunction,
-      this.safeAreaList = const [false, false, false, false]})
+      this.safeAreaList = const [false, false, false, false],
+      this.controller})
       : assert(
           pages != null || rawPages != null,
           "You must set either 'pages' or 'rawPages' parameter",
@@ -410,7 +413,8 @@ class IntroductionScreenState extends State<IntroductionScreen> {
   void initState() {
     super.initState();
     final int initialPage = min(widget.initialPage, getPagesLength() - 1);
-    _pageController = PageController(initialPage: initialPage);
+    _pageController =
+        widget.controller ?? PageController(initialPage: initialPage);
     _showBottom = widget.showBottomPart;
     _currentPage = initialPage.toDouble();
     _autoScroll(widget.autoScrollDuration);
@@ -441,10 +445,10 @@ class IntroductionScreenState extends State<IntroductionScreen> {
 
   int getCurrentPage() => _currentPage.round();
 
-  Future<void> _autoScroll(int? _durationInt) async {
-    if (_durationInt != null) {
-      final Duration _autoscrollDuration = Duration(milliseconds: _durationInt);
-      final _animationDuration = Duration(
+  Future<void> _autoScroll(int? durationInt) async {
+    if (durationInt != null) {
+      final Duration autoscrollDuration = Duration(milliseconds: durationInt);
+      final animationDuration = Duration(
         milliseconds: widget.animationDuration,
       );
       final int pagesLength = getPagesLength() - 1;
@@ -454,8 +458,8 @@ class IntroductionScreenState extends State<IntroductionScreen> {
             break;
           }
           await _movePage(
-            _autoscrollDuration,
-            _animationDuration,
+            autoscrollDuration,
+            animationDuration,
             getCurrentPage() < pagesLength,
           );
         }
@@ -465,8 +469,8 @@ class IntroductionScreenState extends State<IntroductionScreen> {
             break;
           }
           await _movePage(
-            _autoscrollDuration,
-            _animationDuration,
+            autoscrollDuration,
+            animationDuration,
             true,
           );
         }
@@ -523,7 +527,7 @@ class IntroductionScreenState extends State<IntroductionScreen> {
   }
 
   Future<void> animateScroll(int page) async {
-    bool isValidToProgress = widget.canProgress(getCurrentPage());
+    final bool isValidToProgress = widget.canProgress(getCurrentPage());
     if (isValidToProgress) {
       _isScrolling = true;
       await _pageController.animateToPage(
@@ -562,21 +566,21 @@ class IntroductionScreenState extends State<IntroductionScreen> {
         maintainSize: true,
         child: widget.overrideSkip ??
             IntroButton(
-              child: widget.skip!,
               style: widget.baseBtnStyle?.merge(widget.skipStyle) ??
                   widget.skipStyle,
               semanticLabel: widget.skipSemantic,
               onPressed: _onSkip,
+              child: widget.skip!,
             ),
       );
     } else if (widget.showBackButton && getCurrentPage() > 0) {
       leftBtn = widget.overrideBack ??
           IntroButton(
-            child: widget.back!,
             style: widget.baseBtnStyle?.merge(widget.backStyle) ??
                 widget.backStyle,
             semanticLabel: widget.backSemantic,
             onPressed: !_isScrolling ? previous : null,
+            child: widget.back!,
           );
     }
 
@@ -584,20 +588,20 @@ class IntroductionScreenState extends State<IntroductionScreen> {
     if (isLastPage && widget.showDoneButton) {
       rightBtn = widget.overrideDone ??
           IntroButton(
-            child: widget.done!,
             style: widget.baseBtnStyle?.merge(widget.doneStyle) ??
                 widget.doneStyle,
             semanticLabel: widget.doneSemantic,
             onPressed: !_isScrolling ? widget.onDone : null,
+            child: widget.done!,
           );
     } else if (!isLastPage && widget.showNextButton) {
       rightBtn = widget.overrideNext ??
           IntroButton(
-            child: widget.next!,
             style: widget.baseBtnStyle?.merge(widget.nextStyle) ??
                 widget.nextStyle,
             semanticLabel: widget.nextSemantic,
             onPressed: !_isScrolling ? next : null,
+            child: widget.next!,
           );
     }
 

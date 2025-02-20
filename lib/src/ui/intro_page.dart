@@ -14,7 +14,7 @@ class IntroPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _IntroPageState createState() => _IntroPageState();
+  State<IntroPage> createState() => _IntroPageState();
 }
 
 class _IntroPageState extends State<IntroPage>
@@ -48,9 +48,9 @@ class _IntroPageState extends State<IntroPage>
               ].asReversed(page.reverse),
               if (page.footer != null)
                 Flexible(
-                  child: page.footer!,
                   flex: page.decoration.footerFlex,
                   fit: page.decoration.footerFit,
+                  child: page.footer!,
                 ),
               SafeArea(
                 top: false,
@@ -108,9 +108,9 @@ class _IntroPageState extends State<IntroPage>
           ].asReversed(page.reverse),
           if (page.footer != null)
             Flexible(
-              child: page.footer!,
               flex: page.decoration.footerFlex,
               fit: page.decoration.footerFit,
+              child: page.footer!,
             ),
           SizedBox(height: page.decoration.safeArea)
         ],
