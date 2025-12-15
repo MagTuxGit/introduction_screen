@@ -65,7 +65,7 @@ class _IntroPageState extends State<IntroPage>
     );
   }
 
-  Widget _buildFlex(context) {
+  Widget _buildFlex(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
     final PageViewModel page = widget.page;
 
